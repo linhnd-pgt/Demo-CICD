@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Rook Book Store</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div class="box-search-content search_active block-bg close__top"
+         th:replace="user/fragments/search_popup :: search_popup">
+    </div>
+    <!-- End Search Popup -->
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+    <!-- cart-main-area start -->
+    <div class="cart-main-area section-padding--lg bg--white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ol-lg-12">
+
+                    <div class="table-content wnro__table table-responsive">
+                        <table>
+                            <thead>
+                            <tr class="title-top">
+                                <th class="product-thumbnail">Ảnh</th>
+                                <th class="product-name">Sản phẩm</th>
+                                <th class="product-price">Giá</th>
+                                <th class="product-quantity">Số lượng</th>
+                                <th class="product-subtotal">Tổng tiền</th>
+                                <th class="product-remove">Bỏ sản phẩm</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="cartItem : ${cart.cartItems}">
+                                <td class="product-thumbnail">
+                                    <a th:href="@{/shop/product/__${cartItem.bookId}__}">
+                                        <img alt="product img"
+                                             th:src="${cartItem.coverImage}"/>
+                                    </a>
+                                </td>
+                                <td class="product-name">
+                                    <a th:href="@{/shop/product/__${cartItem.bookId}__}"
+                                       th:text="${cartItem.title}"></a>
+                                </td>
+                                <td class="product-price">
+											<span class="amount"
+                                                  th:text="${#numbers.formatDecimal(__${cartItem.price}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></span>
+                                </td>
+                                <td class="product-quantity">
+                                    <input th:attr="onchange='updateCartItemQuantity(' + ${cartItem.bookId} + ', ' + this.value + ')'" th:min="1" th:value="${cartItem.quantity}"
+                                           type="number"/>
+                                </td>
+
+                                <td class="product-subtotal"
+
+                                    th:text="${#numbers.formatDecimal(__${cartItem.price * cartItem.quantity}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                                >
+                                </td>
+                                <td class="product-remove"><a
+                                        th:href="@{/cart/remove-cart-item/__${cartItem.bookId}__}">X</a></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="cartbox__btn">
+                        <ul
+                                class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+                            <li><a th:href="@{/cart/checkout}">Thanh toán</a></li>
+
+                            <li>
+                                <div class="cart__total__amount"
+                                     style="display: flex; gap: 50px; background-color: black">
+                                    <span>Tổng tiền đơn hàng</span>
+                                    <span
+                                            th:text="${#numbers.formatDecimal(__${totalCart}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                                    ></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- cart-main-area end -->
+    <!-- Footer Area -->
+    <footer th:replace="user/fragments/footer :: footer"></footer>
+    <!-- //Footer Area -->
+
+    <script>
+        function updateCartItemQuantity(productId, newQuantity) {
+            console.log(newQuantity)
+            $.ajax({
+                type: "POST",
+                url: "/cart/update-cart-item",
+                data: {
+                    productId: productId,
+                    quantity: newQuantity
+                },
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+
+</div>
+<!-- //Main wrapper -->
+<!-- JS Files -->
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+
+</body>
+
+</html>

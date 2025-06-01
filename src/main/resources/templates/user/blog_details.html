@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Rook Book Store</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+
+
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
+    <style>
+        .mainmenu__nav .meninmenu li a  {
+            color: white;
+        }
+    </style>
+
+
+
+
+</head>
+
+<body>
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+
+    <!--    &lt;!&ndash; Start Search Popup &ndash;&gt;-->
+    <!--    <div class="box-search-content search_active block-bg close__top"-->
+    <!--         th:replace="user/fragments/search_popup :: search_popup">-->
+    <!--    </div>-->
+    <!--    &lt;!&ndash; End Search Popup &ndash;&gt;-->
+
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+</div>
+<!--&lt;!&ndash; Start Search Popup &ndash;&gt;-->
+<!--<div th:replace="user/fragments/search_popup :: search_popup"></div>-->
+<!--&lt;!&ndash; End Search Popup &ndash;&gt;-->
+
+<!-- Start Blog Area -->
+<div class="page-blog bg--white section-padding--lg blog-sidebar right-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="row">
+                <div class="col-lg-9 col-12">
+                    <div class="blog-details content">
+                        <article class="blog-post-details">
+                            <div class="post-thumbnail">
+                                <img th:src="${blog.thumbnail}" alt="blog images">
+                            </div>
+                            <div class="post_wrapper">
+                                <div class="post_header">
+                                    <h2 th:text="${blog.title}"></h2>
+                                    <div class="blog-date-categori">
+                                        <ul>
+                                            <li th:text="${#dates.format(blog.createdAt, 'dd-MM-yyyy')}"></li>
+                                            <li><a href="#" rel="author" th:text="${blog.user.getFullName()}"></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="post_content" th:utext="${blog.content}">
+
+
+                                </div>
+                            </div>
+                        </article>
+                        <div class="comments_area">
+                            <h3 class="comment__title" th:text="${comments.size()} + ' comments'"></h3>
+                            <ul class="comment__list" id="commentList">
+                                <li th:each="comment : ${comments}">
+                                    <div class="wn__comment" id="wn__comment">
+                                        <div class="thumb">
+                                            <img th:src="@{/images/img.png}" alt="comment images">
+                                        </div>
+                                        <div class="content">
+                                            <div class="comnt__author d-block d-sm-flex">
+                                                <span th:text="${comment.user.email}"><a></a></span>
+                                                <span th:text="${#dates.format(comment.createdAt, 'hh:mm, dd-MM-yyyy')}"></span>
+                                                <div class="reply__btn">
+                                                    <a href="#">Reply</a>`
+                                                </div>
+                                            </div>
+                                            <p th:text="${comment.content}"></p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="comment_respond" th:if="${currentUser == null}">
+                            <h3 class="reply_title">Pleas login to comment</h3>
+                            <form class="comment__form" action="#">
+                                <div class="submite__btn">
+                                    <a th:href="@{/login}" style="cursor: pointer">Login</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="comment_respond" th:if="${currentUser != null}">
+                            <h3 class="reply_title">Leave a Comment</h3>
+                            <form class="comment__form" action="#">
+                                <div class="input__box">
+                                    <textarea name="comment" id="commentContent" placeholder="Your comment here"></textarea>
+                                </div>
+                                <div class="submite__btn">
+                                    <a onclick="sendComment()" style="cursor: pointer">Post Comment</a>
+                                </div>
+
+                                <script th:inline="javascript">
+                                    /*<![CDATA[*/
+                                    var blogId = [[${blog.id}]];
+                                    var userId = [[${currentUser.id}]]; 
+                                    /*]]>*/
+                                </script>
+
+                                <script>
+                                    var stompClient = null;
+
+                                    function connect() {
+                                        var socket = new SockJS('/ws');
+                                        stompClient = Stomp.over(socket);
+                                        stompClient.connect({}, function (frame) {
+                                            console.log('Connected: ' + frame);
+                                            stompClient.subscribe('/blog/comments', function (comment) {
+                                                showComment(comment.body);
+                                            });
+                                        },function (error) {
+                                            console.log('STOMP error: ' + error);
+                                        });
+
+                                        var textarea = document.getElementById('commentContent');
+                                        textarea.value = '';
+                                    }
+
+                                    function sendComment() {
+                                        if(userId !== null){
+                                            var content = document.getElementById("commentContent").value;
+                                            stompClient.send("/app/comment", {},
+                                                JSON.stringify({
+                                                    'content': content, 'blogId': blogId, 'userId': userId
+                                                }));
+                                            var textarea = document.getElementById('commentContent');
+                                            textarea.value = '';
+                                        }
+                                        else{
+                                            alert("Bạn cần đăng nhập trước");
+                                            window.location.href = "/login";
+                                        }
+                                    }
+
+                                    function showComment(foundedComment) {
+                                        /* <li th:each="comment : ${comments}">
+                                    <div class="wn__comment" id="wn__comment">
+                                        <div class="thumb">
+                                            <img th:src="@{/images/img.png}" alt="comment images">
+                                        </div>
+                                        <div class="content">
+                                            <div class="comnt__author d-block d-sm-flex">
+                                                <span th:text="${comment.user.email}"><a></a></span>
+                                                <span th:text="${#dates.format(comment.createdAt, 'hh:mm, dd-MM-yyyy')}"></span>
+                                                <div class="reply__btn">
+                                                    <a href="#">Reply</a>`
+                                                </div>
+                                            </div>
+                                            <p th:text="${comment.content}"></p>
+                                        </div>
+                                    </div>
+                                </li> */
+
+                                        var comments = document.getElementById("commentList");
+
+                                        var li = document.createElement("li");
+                                        var wnComment = document.createElement("div");
+                                        wnComment.classList.add("wn__comment");
+
+                                        var thumbDiv = document.createElement("div");
+                                        thumbDiv.classList.add("thumb");
+
+                                        var imgThumbDiv = document.createElement("img");
+                                        imgThumbDiv.src = "/images/img.png";
+                                        imgThumbDiv.alt = "avatar";
+
+                                        thumbDiv.appendChild(imgThumbDiv);
+
+                                        var comment = JSON.parse(foundedComment);
+                                        var contentDiv = document.createElement("div");
+                                        contentDiv.classList.add("content");
+
+                                        var authorDiv = document.createElement("div");
+                                        authorDiv.classList.add("comnt__author", "d-block", "d-sm-flex");
+
+                                        var emailSpan = document.createElement("span");
+                                        var emailLink = document.createElement("a");
+                                        emailLink.href = "#";
+                                        emailSpan.textContent = comment.user.email;
+                                        emailSpan.appendChild(emailLink);
+
+                                        var dateSpan = document.createElement("span");
+                                        dateSpan.textContent = comment.createdAt;
+
+                                        var replyBtnDiv = document.createElement("div");
+                                        replyBtnDiv.classList.add("reply__btn");
+                                        var replyLink = document.createElement("a");
+                                        replyLink.href = "#";
+                                        replyLink.textContent = "Reply";
+                                        replyBtnDiv.appendChild(replyLink);
+
+                                        authorDiv.appendChild(emailSpan);
+                                        authorDiv.appendChild(dateSpan);
+                                        authorDiv.appendChild(replyBtnDiv);
+                                        contentDiv.appendChild(authorDiv);
+
+                                        var contentP = document.createElement("p");
+                                        contentP.textContent = comment.content;
+
+                                        contentDiv.appendChild(contentP);
+
+                                        wnComment.appendChild(thumbDiv);
+                                        wnComment.appendChild(contentDiv);
+
+                                        li.appendChild(wnComment);
+
+                                        if(comments.firstChild){
+                                            comments.insertBefore(li, comments.firstChild);
+                                        } else{
+                                            comments.appendChild(li);
+                                        }
+                                        var textarea = document.getElementById('commentContent');
+                                        textarea.value = '';
+                                    }
+                                    connect();
+                                </script>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
+                <div class="wn__sidebar">
+                    <!-- Start Single Widget -->
+                    <aside class="widget search_widget">
+                        <h3 class="widget-title">Search</h3>
+                        <form action="#">
+                            <div class="form-input">
+                                <input type="text" placeholder="Search...">
+                                <button><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </aside>
+                    <!-- End Single Widget -->
+                    <!-- Start Single Widget -->
+                    <aside class="widget recent_widget">
+                        <h3 class="widget-title">Recent</h3>
+                        <div class="recent-posts">
+                            <ul>
+                                <li th:each="recentBlog : ${top6RecentBlogList}">
+                                    <div class="post-wrapper d-flex">
+                                        <div class="thumb">
+                                            <a href="blog-details.html"><img th:src="${recentBlog.thumbnail}" alt="blog images"></a>
+                                        </div>
+                                        <div class="content">
+                                            <h4><a href="blog-details.html" th:text="${recentBlog.title}"></a></h4>
+                                            <p th:text="${#dates.format(recentBlog.getCreatedAt(), 'dd-MM-yyyy')}"></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+                    <!-- End Single Widget -->
+                    <!--                    &lt;!&ndash; Start Single Widget &ndash;&gt;-->
+                    <!--                    <aside class="widget comment_widget">-->
+                    <!--                        <h3 class="widget-title">Comments</h3>-->
+                    <!--                        <ul>-->
+                    <!--                            <li>-->
+                    <!--                                <div class="post-wrapper">-->
+                    <!--                                    <div class="thumb">-->
+                    <!--                                        <img src="images/blog/comment/1.jpeg" alt="Comment images">-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="content">-->
+                    <!--                                        <p>demo says:</p>-->
+                    <!--                                        <a href="#">Quisque semper nunc vitae...</a>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </li>-->
+                    <!--                            <li>-->
+                    <!--                                <div class="post-wrapper">-->
+                    <!--                                    <div class="thumb">-->
+                    <!--                                        <img src="images/blog/comment/1.jpeg" alt="Comment images">-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="content">-->
+                    <!--                                        <p>Admin says:</p>-->
+                    <!--                                        <a href="#">Curabitur aliquet pulvinar...</a>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </li>-->
+                    <!--                            <li>-->
+                    <!--                                <div class="post-wrapper">-->
+                    <!--                                    <div class="thumb">-->
+                    <!--                                        <img src="images/blog/comment/1.jpeg" alt="Comment images">-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="content">-->
+                    <!--                                        <p>Irin says:</p>-->
+                    <!--                                        <a href="#">Quisque semper nunc vitae...</a>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </li>-->
+                    <!--                            <li>-->
+                    <!--                                <div class="post-wrapper">-->
+                    <!--                                    <div class="thumb">-->
+                    <!--                                        <img src="images/blog/comment/1.jpeg" alt="Comment images">-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="content">-->
+                    <!--                                        <p>Boighor says:</p>-->
+                    <!--                                        <a href="#">Quisque semper nunc vitae...</a>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </li>-->
+                    <!--                            <li>-->
+                    <!--                                <div class="post-wrapper">-->
+                    <!--                                    <div class="thumb">-->
+                    <!--                                        <img src="images/blog/comment/1.jpeg" alt="Comment images">-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="content">-->
+                    <!--                                        <p>demo says:</p>-->
+                    <!--                                        <a href="#">Quisque semper nunc vitae...</a>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </li>-->
+                    <!--                        </ul>-->
+                    <!--                    </aside>-->
+                    <!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
+                    <!-- Start Single Widget -->
+                    <!--                    <aside class="widget category_widget">-->
+                    <!--                        <h3 class="widget-title">Categories</h3>-->
+                    <!--                        <ul>-->
+                    <!--                            <li><a href="#">Fashion</a></li>-->
+                    <!--                            <li><a href="#">Creative</a></li>-->
+                    <!--                            <li><a href="#">Electronics</a></li>-->
+                    <!--                            <li><a href="#">Kids</a></li>-->
+                    <!--                            <li><a href="#">Flower</a></li>-->
+                    <!--                            <li><a href="#">Books</a></li>-->
+                    <!--                            <li><a href="#">Jewelle</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </aside>-->
+                    <!-- End Single Widget -->
+                    <!--                    &lt;!&ndash; Start Single Widget &ndash;&gt;-->
+                    <!--                    <aside class="widget archives_widget">-->
+                    <!--                        <h3 class="widget-title">Archives</h3>-->
+                    <!--                        <ul>-->
+                    <!--                            <li><a href="#">March 2015</a></li>-->
+                    <!--                            <li><a href="#">December 2014</a></li>-->
+                    <!--                            <li><a href="#">November 2014</a></li>-->
+                    <!--                            <li><a href="#">September 2014</a></li>-->
+                    <!--                            <li><a href="#">August 2014</a></li>-->
+                    <!--                        </ul>-->
+                    <!--                    </aside>-->
+                    <!--                    &lt;!&ndash; End Single Widget &ndash;&gt;-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Blog Area -->
+
+<!-- Footer Area -->
+<footer th:replace="user/fragments/footer :: footer"></footer>
+<!-- //Footer Area -->
+</body>

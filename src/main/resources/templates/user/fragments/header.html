@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Rook Book Store</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 100%;
+            font-family: inherit;
+        }
+        body {
+            font-family: Arial, sans-serif !important;
+            line-height: 1.5;
+        }
+    </style>
+
+    <link rel="stylesheet" th:href="@{/css/user/reset.css}">
+
+</head>
+
+<body class="sb-nav-fixed">
+<header class="header__area header__absolute sticky__header" id="wn__header" th:fragment="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                <div class="logo">
+                    <a th:href="@{/}">
+                        <img alt="logo images" class="logo" th:src="@{/images/logo/Rooks-Logo.png}"/>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-8 d-none d-lg-block">
+                <nav class="mainmenu__nav">
+                    <ul class="meninmenu d-flex justify-content-start">
+                        <li class="drop with--one--item">
+                            <a th:href="@{/}">Trang chủ</a>
+                        </li>
+                        <li class="drop">
+                            <a th:href="@{/shop}">Tìm kiếm</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/contact}">Liên hệ</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/blogs}">Bài viết</a>
+                        </li>
+                        <li th:if="${currentUser != null}">
+                            <a th:text="${currentUser.fullName}"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+
+
+                    <li class="shopcart">
+                        <a th:href="@{/cart}"><span class="product_qun" id="cart-quantity"
+                                                    th:text="${cartItemCount}"></span></a>
+                    </li>
+
+                    <li class="setting__bar__icon">
+                        <a class="setting__active" href="#"></a>
+                        <div class="searchbar__content setting__block">
+                            <div class="content-inner">
+                                <div class="switcher-currency">
+                                    <strong class="label switcher-label">
+											<span th:if="${currentUser != null}" th:text="${currentUser.fullName}">
+
+											</span>
+                                        <span th:if="${currentUser == null}" th:text="Account">
+
+											</span>
+                                    </strong>
+                                    <div class="switcher-options">
+                                        <div class="switcher-currency-trigger">
+                                            <div class="setting__menu" th:if="${currentUser != null}">
+
+													<span th:each="role : ${currentUser.roles}">
+   														 <span th:if="${role.name == 'ROLE_ADMIN'}">
+															 <span><a class="font-weight-bold text-primary"
+                                                                      th:href="@{/admin}">ADMIN</a></span>
+														 </span>
+													</span>
+                                                <span><a th:href="@{/cart/checkout}">Thanh toán</a></span>
+                                                <span><a th:href="@{/cart/checkout-vnpay}">Thánh toán - VNPAY</a></span>
+                                                <span><a th:href="@{/orders}">Đơn hàng</a></span>
+                                                <span><a th:href="@{/wishlist}">Danh sách yêu thích</a></span>
+                                                <span><a th:href="@{/logout}">Đăng xuất</a></span>
+                                            </div>
+
+                                            <div class="setting__menu" th:if="${currentUser == null}">
+                                                <span><a th:href="@{/login}">Đăng nhập</a></span>
+                                                <span><a th:href="@{/register}">Đăng ký</a></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- JS Files -->
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

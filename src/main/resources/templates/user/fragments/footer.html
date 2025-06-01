@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Rook Book Store</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+    </style>
+
+    <link rel="stylesheet" th:href="@{/css/user/reset.css}">
+
+</head>
+
+<body class="sb-nav-fixed">
+<footer class="footer__area bg__cat--8 brown--color" id="wn__footer" th:fragment="footer">
+    <div class="footer-static-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__widget footer__menu">
+                        <div class="ft__logo">
+                            <a href="index.html">
+                                <img alt="logo" th:src="@{/images/logo/Rooks-Logo.png}"/>
+                            </a>
+                        </div>
+                        <div class="footer__content">
+                            <ul class="social__net social__net--2 d-flex justify-content-center">
+                                <li>
+                                    <a href="#"><i class="bi bi-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="bi bi-google"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="bi bi-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="bi bi-youtube"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${showChatWidget == null || showChatWidget == true}" th:replace="~{user/fragments/chatWidgetFragment :: chatWidget}"></div>
+</footer>
+
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+
+</body>
+
+</html>

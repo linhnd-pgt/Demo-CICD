@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title>Admin - Thêm/cập nhật bài viết</title>
+    <link rel="stylesheet" th:href="@{/css/admin/styles.css}"/>
+    <script crossorigin="anonymous" th:src="@{/js/admin/fontawesome-all.js}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
+    <style>
+        .scroll-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #007bff;
+            color: #ffffff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-to-top:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="admin/fragments/header :: header_nav"></div>
+<div id="layoutSidenav">
+    <div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+
+                <div class="container mt-5">
+                    <div class="alert alert-success" role="alert" th:if="${message}">
+                        <p th:text="${message}"></p>
+                    </div>
+                    <h2>Thêm/Cập nhật Sản phẩm</h2>
+                    <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}">
+                    </div>
+
+                    <form enctype="multipart/form-data" method="post" th:action="@{/admin/blogs_management/add}"
+                          th:object="${blog}">
+                        <input th:field="*{id}" type="hidden"/>
+
+                        <div class="form-group">
+                            <label for="blogTitle">Tiêu đề</label>
+                            <input class="form-control" id="blogTitle" placeholder="Nhập tiêu đề bài viết" required th:field="*{title}"
+                                   type="text"/>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
+                            <label for="userId">Người đăng bài</label>
+                            <select aria-label="Default select example" class="form-select" id="userId" required
+                                    th:field="*{user.id}">
+                                <option selected value="-1">Chọn 1 trong các người đăng sau</option>
+                                <option th:each="user : ${users}" th:text="${user.fullName}"
+                                        th:value="${user.id}"></option>
+                            </select>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
+                            <label for="summary">Tóm tắt</label>
+                            <input class="form-control" id="summary" placeholder="Nhập tóm tắt" required step="0.01"
+                                   th:field="*{summary}" type="text"/>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
+                            <label for="content">Nội dung</label>
+                            <textarea class="form-control" id="content" placeholder="Nhập nội dung bài viết" rows="6"
+                                      th:field="*{content}"></textarea>
+
+                            <script>
+                                ClassicEditor
+                                    .create(document.querySelector('#content'), {
+                                        height: 600,
+                                        ckfinder: {
+                                            uploadUrl: '/admin/blogs_management/upload-image'
+                                        },
+                                        toolbar: [
+                                            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo',
+                                            'imageUpload', 'insertTable', 'mediaEmbed'
+                                        ],
+                                        image: {
+                                            toolbar: [
+                                                'imageTextAlternative', 'imageStyle:side'
+                                            ]
+                                        },
+                                        table: {
+                                            contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                            </script>
+
+                        </div>
+
+                        <br/>
+
+                        <div class="form-group">
+                            <label>Ảnh thumbnail (nếu không chọn ảnh mới thì sẽ dùng ảnh cũ):</label>
+                            <div class="input-group mb-3">
+                                <input class="form-control" id="inputGroupFile02" name="blog_thumbnail" onchange="previewImage(this)"
+                                       type="file"/>
+
+                                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                            </div>
+                            <div id="imagePreview" style="max-width: 300px;">
+                                <!-- Hiển thị ảnh cũ nếu có -->
+                                <img alt="cover image" style="max-width: 100%;"
+                                     th:if="${blog.thumbnail}" th:src="${blog.thumbnail}"/>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <button class="btn btn-primary" type="submit">Xác nhận</button>
+                    </form>
+                </div>
+                <br/>
+            </div>
+        </main>
+        <div th:replace="admin/fragments/footer :: footer"></div>
+        <div class="scroll-to-top" id="scrollButton" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </div>
+</div>
+<script>
+    function previewImage(input) {
+        const preview = document.getElementById("imagePreview");
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.style.maxWidth = "100%";
+                preview.innerHTML = "";
+                preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<script>
+    // Function to show/hide the scroll-to-top button
+    function toggleScrollButton() {
+        const scrollButton = document.getElementById("scrollButton");
+        if (window.scrollY >= 200) {
+            scrollButton.style.display = "block";
+        } else {
+            scrollButton.style.display = "none";
+        }
+    }
+
+    // Function to scroll to the top of the page
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }
+
+    // Add event listener to show/hide the scroll-to-top button
+    window.addEventListener("scroll", toggleScrollButton);
+</script>
+<script crossorigin="anonymous" th:src="@{/js/admin/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/admin/scripts.js}"></script>
+</body>
+
+</html>

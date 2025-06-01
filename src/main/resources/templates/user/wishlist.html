@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Danh sách yêu thích</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+
+        .prod-img {
+            max-width: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+
+    <!-- Header -->
+    <header th:replace="user/fragments/header:: header"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div th:replace="user/fragments/search_popup :: search_popup"></div>
+    <!-- End Search Popup -->
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+    <!-- cart-main-area start -->
+    <div class="wishlist-area section-padding--lg bg__white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="wishlist-content">
+
+                        <div class="wishlist-table wnro__table table-responsive">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th class="product-thumbnail text-center">Ảnh</th>
+                                    <th class="product-name text-center"><span class="nobr">Tên sản phẩm</span></th>
+                                    <th class="product-price text-center"><span class="nobr">Đơn giá</span></th>
+                                    <th class="product-stock-stauts text-center"><span class="nobr"> Tình trạng
+													</span></th>
+                                    <th class="product-add-to-cart"></th>
+                                    <th class="product-remove text-center"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item : ${favoritesList}">
+                                    <td class="product-thumbnail px-3 prod-img text-center"><a
+                                            th:href="@{/shop/product/__${item.id}__}"><img
+                                            alt="" th:src="${item.coverImage}"></a></td>
+                                    <td class="product-name px-3 text-center"><a th:href="@{/shop/product/__${item.id}__}"
+                                                                     th:text="${item.title}"></a></td>
+                                    <td class="product-price px-3 text-center"><span class="amount"
+                                                                         th:text="${#numbers.formatDecimal(__${(item.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                                    ></span></td>
+                                    <td class="product-stock-status px-3 text-center"><span class="wishlist-in-stock">Còn hàng</span></td>
+                                    <td class=" px-3">
+                                        <button class="btn btn-danger text-light py-2 px-4"
+                                                th:onclick="'addToCart(' + ${item.id} + ')'">
+                                            Thêm giỏ hàng
+                                        </button>
+                                    </td>
+                                    <td class="product-remove px-3">
+                                        <button th:onclick="'removeFromWishlist('+${item.id} +')'">×</button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- cart-main-area end -->
+    <!-- Footer Area -->
+    <footer th:replace="user/fragments/footer :: footer"></footer>
+    <!-- //Footer Area -->
+
+</div>
+
+
+<script>
+
+    function removeFromWishlist(productId) {
+
+        $.ajax({
+            type: "POST",
+            url: "/wishlist/remove",
+            data: {
+                bookId: productId
+            },
+            success: function (response) {
+                if (response === "ok") {
+                    alert("Đã xoá khỏi danh sách yêu thích");
+                    window.location.reload();
+                } else {
+                    alert("Bạn cần đăng nhập trước");
+                    window.location.href = "/login";
+                }
+            },
+            error: function (xhr, status, error) {
+
+                alert("Đã có lỗi : " + error);
+            }
+        });
+    }
+
+    function addToCart(productId) {
+        var data = JSON.stringify({"productId": productId, "quantity": 1});
+
+        $.ajax({
+            type: "POST",
+            url: "/cart/add-to-cart",
+            contentType: "application/json",
+            data: data,
+            success: function (data) {
+                if (data === "ok") {
+                    alert("Thêm sản phẩm vào giỏ thành công");
+                    // Update cart quantity in the header
+                    updateCartQuantity();
+                } else {
+                    alert("Bạn cần đăng nhập trước");
+                    window.location.href = "/login"; // Update the URL accordingly
+                }
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi");
+            }
+        });
+    }
+
+    function updateCartQuantity() {
+        $.ajax({
+            type: "GET",
+            url: "/cart/cart-item-count",  // Replace with the actual endpoint to get cart item count
+            success: function (data) {
+                $("#cart-quantity").text(data); // Update the cart quantity in the header
+            },
+            error: function () {
+                console.log("Error updating cart quantity.");
+            }
+        });
+    }
+</script>
+<!-- //Main wrapper -->
+<!-- JS Files -->
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+
+</body>
+
+</html>

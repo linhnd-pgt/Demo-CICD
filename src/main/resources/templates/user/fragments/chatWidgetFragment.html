@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="chatWidget">
+    <div class="chat-widget" id="chat-widget">
+        <div class="chat-widget-header">
+            <h4>Trợ lý sách</h4>
+            <button id="close-chat">×</button>
+        </div>
+        <div class="chat-widget-messages" id="widget-messages">
+            <div class="message bot-message animate__animated animate__fadeIn">
+                Xin chào! Tôi là trợ lý sách của Rooks Books. Bạn đang tìm kiếm sách gì?
+            </div>
+            <div class="typing-indicator" id="widget-typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="chat-widget-input">
+            <input type="text" id="widget-user-input" placeholder="Nhập tin nhắn của bạn..." />
+            <button id="widget-send-button">
+                <i class="fa fa-paper-plane"></i>
+                <div class="loading-spinner" id="widget-send-spinner"></div>
+            </button>
+        </div>
+        <div class="widget-recommended-books animate__animated animate__fadeIn" id="widget-recommended-books" style="display: none;">
+            <h5>Sách được đề xuất:</h5>
+            <div class="widget-book-list" id="widget-book-list">
+                <!-- Book cards will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+    <button class="chat-widget-toggle animate__animated animate__pulse animate__infinite" id="chat-widget-toggle">
+        <i class="fa fa-comments"></i>
+    </button>
+
+    <style>
+        /* Import animate.css */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+        .chat-widget-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #ce7852;
+            color: white;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-widget-toggle:hover {
+            transform: scale(1.1);
+            background-color: #b56a47;
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-widget-header {
+            padding: 15px;
+            background-color: #ce7852;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-widget-header h4 {
+            margin: 0;
+            color: white;
+        }
+
+        .chat-widget-header button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .chat-widget-header button:hover {
+            transform: scale(1.2);
+        }
+
+        .chat-widget-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            max-height: 300px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            max-width: 80%;
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word;
+            transition: all 0.3s ease;
+        }
+
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: auto;
+            border-top-right-radius: 0;
+            animation: userMessageIn 0.3s ease;
+        }
+
+        @keyframes userMessageIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .bot-message {
+            background-color: #f5f5f5;
+            margin-right: auto;
+            border-top-left-radius: 0;
+            animation: botMessageIn 0.3s ease;
+        }
+
+        @keyframes botMessageIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .chat-widget-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-widget-input input {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+            transition: border 0.3s ease;
+        }
+
+        .chat-widget-input input:focus {
+            border-color: #ce7852;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(206, 120, 82, 0.2);
+        }
+
+        .chat-widget-input button {
+            width: 40px;
+            height: 40px;
+            background-color: #ce7852;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        .chat-widget-input button:hover {
+            background-color: #b56a47;
+            transform: scale(1.05);
+        }
+
+        .chat-widget-input button:active {
+            transform: scale(0.95);
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            position: absolute;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            width: fit-content;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #999;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+            margin-right: 0;
+        }
+
+        @keyframes typing {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .widget-recommended-books {
+            padding: 10px;
+            border-top: 1px solid #eee;
+            max-height: 200px;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .widget-book-list {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 5px 0;
+        }
+
+        .widget-book-card {
+            min-width: 100px;
+            max-width: 100px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: bookCardIn 0.5s ease;
+        }
+
+        @keyframes bookCardIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .widget-book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .widget-book-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 5px;
+            border-radius: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        .widget-book-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .widget-book-card h5 {
+            font-size: 12px;
+            margin-bottom: 3px;
+            height: 30px;
+            overflow: hidden;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .widget-book-card:hover h5 {
+            color: #ce7852;
+        }
+
+        .widget-book-card p {
+            font-size: 10px;
+            color: #ce7852;
+            font-weight: bold;
+        }
+
+        /* Typing animation for bot messages */
+        .typing-text {
+            display: inline-block;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            width: 100%;
+            animation: typing-text 1s steps(40, end);
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes typing-text {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Pulse notification for new messages */
+        @keyframes pulse-notification {
+            0% {
+                box-shadow: 0 0 0 0 rgba(206, 120, 82, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(206, 120, 82, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(206, 120, 82, 0);
+            }
+        }
+
+        .pulse-notification {
+            animation: pulse-notification 2s infinite;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatWidget = document.getElementById('chat-widget');
+            const chatToggle = document.getElementById('chat-widget-toggle');
+            const closeChat = document.getElementById('close-chat');
+            const widgetMessages = document.getElementById('widget-messages');
+            const widgetUserInput = document.getElementById('widget-user-input');
+            const widgetSendButton = document.getElementById('widget-send-button');
+            const widgetTypingIndicator = document.getElementById('widget-typing-indicator');
+            const widgetRecommendedBooks = document.getElementById('widget-recommended-books');
+            const widgetBookList = document.getElementById('widget-book-list');
+            const widgetSendSpinner = document.getElementById('widget-send-spinner');
+
+            console.log("Chat widget initialized");
+
+            // Toggle chat widget
+            chatToggle.addEventListener('click', function() {
+                console.log("Toggle clicked");
+                if (chatWidget.style.display === 'flex') {
+                    closeChat.click();
+                } else {
+                    chatWidget.style.display = 'flex';
+                    chatWidget.classList.add('animate__animated', 'animate__fadeIn');
+                    chatToggle.classList.remove('animate__pulse', 'animate__infinite', 'pulse-notification');
+
+                    // Focus on input after opening
+                    setTimeout(() => {
+                        widgetUserInput.focus();
+                    }, 300);
+                }
+            });
+
+            // Close chat widget
+            closeChat.addEventListener('click', function() {
+                chatWidget.classList.add('animate__animated', 'animate__fadeOut');
+
+                setTimeout(() => {
+                    chatWidget.style.display = 'none';
+                    chatWidget.classList.remove('animate__animated', 'animate__fadeOut');
+                }, 300);
+            });
+
+            // Function to add a message to the chat with typing animation
+            function addWidgetMessage(message, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+
+                // Insert before typing indicator
+                widgetMessages.insertBefore(messageDiv, widgetTypingIndicator);
+
+                if (isUser) {
+                    // User messages appear immediately
+                    messageDiv.textContent = message;
+                    messageDiv.classList.add('animate__animated', 'animate__fadeInRight');
+                } else {
+                    // Bot messages have typing animation
+                    const textSpan = document.createElement('span');
+                    textSpan.classList.add('typing-text');
+                    messageDiv.appendChild(textSpan);
+
+                    // Add the text character by character
+                    let i = 0;
+                    const typingSpeed = 30; // milliseconds per character
+
+                    function typeWriter() {
+                        if (i < message.length) {
+                            textSpan.textContent += message.charAt(i);
+                            i++;
+                            setTimeout(typeWriter, typingSpeed);
+                        } else {
+                            // Animation complete
+                            messageDiv.classList.add('animate__animated', 'animate__fadeIn');
+
+                            // Pulse notification on chat toggle if chat is closed
+                            if (chatWidget.style.display !== 'flex') {
+                                chatToggle.classList.add('pulse-notification');
+                            }
+                        }
+                    }
+
+                    // Start typing animation
+                    setTimeout(typeWriter, 300);
+                }
+
+                // Scroll to bottom
+                widgetMessages.scrollTop = widgetMessages.scrollHeight;
+            }
+
+            // Function to show typing indicator
+            function showWidgetTypingIndicator() {
+                widgetTypingIndicator.style.display = 'block';
+                widgetTypingIndicator.classList.add('animate__animated', 'animate__fadeIn');
+                widgetMessages.scrollTop = widgetMessages.scrollHeight;
+
+                // Show loading spinner on send button
+                widgetSendButton.querySelector('i').style.display = 'none';
+                widgetSendSpinner.style.display = 'block';
+
+                // Disable input and button while processing
+                widgetUserInput.disabled = true;
+                widgetSendButton.disabled = true;
+            }
+
+            // Function to hide typing indicator
+            function hideWidgetTypingIndicator() {
+                widgetTypingIndicator.classList.add('animate__animated', 'animate__fadeOut');
+
+                setTimeout(() => {
+                    widgetTypingIndicator.style.display = 'none';
+                    widgetTypingIndicator.classList.remove('animate__animated', 'animate__fadeOut');
+                }, 300);
+
+                // Hide loading spinner on send button
+                widgetSendButton.querySelector('i').style.display = 'block';
+                widgetSendSpinner.style.display = 'none';
+
+                // Re-enable input and button
+                widgetUserInput.disabled = false;
+                widgetSendButton.disabled = false;
+                widgetUserInput.focus();
+            }
+
+            // Function to display recommended books with animation
+            function displayWidgetRecommendedBooks(books) {
+                if (books && books.length > 0) {
+                    // Clear previous recommendations
+                    widgetBookList.innerHTML = '';
+
+                    // Add each book to the list with staggered animation
+                    books.forEach((book, index) => {
+                        const bookCard = document.createElement('div');
+                        bookCard.classList.add('widget-book-card');
+                        bookCard.style.animationDelay = `${index * 0.1}s`;
+
+                        const bookLink = document.createElement('a');
+                        bookLink.href = `/shop/product/${book.id}`;
+
+                        const bookImage = document.createElement('img');
+                        bookImage.src = book.coverImage;
+                        bookImage.alt = book.title;
+
+                        const bookTitle = document.createElement('h5');
+                        bookTitle.textContent = book.title;
+
+                        const bookPrice = document.createElement('p');
+                        bookPrice.textContent = formatWidgetPrice(book.salePrice) + ' VND';
+
+                        bookLink.appendChild(bookImage);
+                        bookCard.appendChild(bookLink);
+                        bookCard.appendChild(bookTitle);
+                        bookCard.appendChild(bookPrice);
+
+                        widgetBookList.appendChild(bookCard);
+                    });
+
+                    // Show the recommendations section with animation
+                    widgetRecommendedBooks.style.display = 'block';
+                    widgetRecommendedBooks.classList.add('animate__animated', 'animate__fadeInUp');
+
+                    // Remove animation classes after animation completes
+                    setTimeout(() => {
+                        widgetRecommendedBooks.classList.remove('animate__animated', 'animate__fadeInUp');
+                    }, 1000);
+                } else {
+                    // Hide the recommendations section if no books
+                    widgetRecommendedBooks.classList.add('animate__animated', 'animate__fadeOutDown');
+
+                    setTimeout(() => {
+                        widgetRecommendedBooks.style.display = 'none';
+                        widgetRecommendedBooks.classList.remove('animate__animated', 'animate__fadeOutDown');
+                    }, 300);
+                }
+            }
+
+            // Function to format price
+            function formatWidgetPrice(price) {
+                if (!price) return "0";
+                return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
+            // Function to send message to server
+            function sendWidgetMessage() {
+                const message = widgetUserInput.value.trim();
+
+                if (message) {
+                    // Add user message to chat
+                    addWidgetMessage(message, true);
+
+                    // Clear input
+                    widgetUserInput.value = '';
+
+                    // Show typing indicator
+                    showWidgetTypingIndicator();
+
+                    // Send message to server
+                    fetch('/chat/send', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message: message })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Hide typing indicator after a minimum delay for better UX
+                            setTimeout(() => {
+                                hideWidgetTypingIndicator();
+
+                                // Add bot response to chat
+                                addWidgetMessage(data.message, false);
+
+                                // Display recommended books after a short delay
+                                setTimeout(() => {
+                                    displayWidgetRecommendedBooks(data.recommendedBooks);
+                                }, 1000);
+                            }, Math.max(1000, data.message.length * 20)); // Minimum 1 second, or longer for longer messages
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+
+                            // Hide typing indicator
+                            setTimeout(() => {
+                                hideWidgetTypingIndicator();
+
+                                // Add error message
+                                addWidgetMessage('Xin lỗi, đã xảy ra lỗi khi xử lý yêu cầu của bạn. Vui lòng thử lại sau.', false);
+                            }, 1000);
+                        });
+                }
+            }
+
+            // Event listeners
+            widgetSendButton.addEventListener('click', sendWidgetMessage);
+
+            widgetUserInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendWidgetMessage();
+                }
+            });
+
+            // Add animation to initial message
+            setTimeout(() => {
+                const initialMessage = widgetMessages.querySelector('.bot-message');
+                if (initialMessage) {
+                    initialMessage.classList.add('animate__animated', 'animate__fadeIn');
+                }
+            }, 500);
+        });
+    </script>
+</div>
+</body>
+</html>

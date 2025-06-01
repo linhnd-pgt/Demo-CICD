@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Rook Book Store</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+
+        .submit {
+            display: inline-block;
+            padding: 20px 60px;
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit:hover {
+            background-color: #45a049;
+        }
+
+        .submit:active {
+            background-color: #3e8e41;
+        }
+
+        .submit:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+
+        .truncate-text {
+            display: inline-block;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+
+    <script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#checkoutForm').on('submit', function (event) {
+                event.preventDefault();
+                requestToVnPay();
+            });
+        });
+
+        function requestToVnPay() {
+
+            const fullName = document.getElementById('fullName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const email = document.getElementById('email').value;
+            const bankCode = document.getElementById('bankCode').value;
+            const address = document.getElementById('address').value;
+            const amount = document.getElementById('orderTotal').innerText;
+
+            // Loại bỏ các ký tự không phải số
+            const numericString = amount.replace(/[^\d]/g, ''); // "35000"
+
+            // Chuyển đổi chuỗi thành số
+            const numericValue = parseInt(numericString, 10); // 35000
+
+            var data = JSON.stringify({
+                "fullName": fullName,
+                "phoneNumber": phoneNumber,
+                "email": email,
+                "bankCode": bankCode,
+                "totalAmount": numericValue,
+                "address": address
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/api/v1/payment/create_payment",  // Replace with the actual endpoint to get cart item count
+                contentType: "application/json",
+                data: data,
+                success: function (response) {
+                    if (response && response.url) {
+                        window.location.href = response.url;
+                    } else {
+                        alert("Error: Invalid response from server.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Error performing request" + error);
+                }
+            })
+
+            $(document).ready(function () {
+                $('#checkoutForm').on('submit', requestToVnPay);
+            });
+
+
+        }
+    </script>
+
+
+</head>
+
+<body>
+
+
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div th:replace="user/fragments/search_popup :: search_popup"></div>
+    <!-- End Search Popup -->
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+    <!-- Start Checkout Area -->
+    <section class="wn__checkout__area section-padding--lg bg__white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="customer_details">
+                        <h3 class="mb-4">Chi tiết đơn hàng</h3>
+                        <form id="checkoutForm">
+                            <div class="customar__field">
+                                <div class="input_box w--75">
+                                    <label>Họ tên <span>*</span></label>
+                                    <input id="fullName" th:value="${orderPerson.getFullName()}" type="text"/>
+                                </div>
+
+                                <div class="input_box w--75">
+                                    <label>Số điện thoại <span>*</span></label>
+                                    <input id="phoneNumber" th:value="${orderPerson.getPhoneNumber()}" type="text"/>
+                                </div>
+
+                                <div class="input_box w--75">
+                                    <label>Email <span>*</span></label>
+                                    <input id="email" th:value="${orderPerson.getEmail()}" type="email"/>
+                                </div>
+
+                                <div class="input_box w--75">
+                                    <label for="bankCode">Mã ngân hàng <span>*</span></label>
+                                    <input id="bankCode" type="text"/>
+                                </div>
+
+                                <div class="input_box w--75">
+                                    <label>Địa chỉ giao hàng <span>*</span></label>
+                                    <textarea cols="70" id="address" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <button class="btn-success submit" th:if="${totalCart > 0}" type="submit">
+                                Đặt hàng
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="wn__order__box">
+                        <h3 class="onder__title">Đơn hàng của bạn</h3>
+                        <ul class="order__total">
+                            <li>Sản phẩm</li>
+                            <li>Tổng tiền</li>
+                        </ul>
+                        <ul class="order_product">
+                            <li class="d-flex justify-content-between align-items-center mb-2"
+                                th:each="cartItem : ${cart.cartItems}">
+                                <div class="d-flex align-items-center">
+                                    <span class="truncate-text mr-2" th:text="${cartItem.title}"></span>
+                                    × <span class="ml-1" th:text="${cartItem.quantity}"></span>
+                                </div>
+                                <span
+                                        class="text-right"
+                                        th:text="${#numbers.formatDecimal(__${(cartItem.price * cartItem.quantity)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></span>
+                            </li>
+                        </ul>
+                        <ul class="total__amount">
+                            <li class="d-flex justify-content-between">
+                                <span>Tổng tiền đơn hàng</span>
+                                <span
+                                        class="text-right"
+                                        id="orderTotal" th:text="${#numbers.formatDecimal(__${(totalCart)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="checkout_accordion mt--30" id="accordion" role="tablist">
+                        <div class="payment">
+                            <div class="che__header" id="headingThree" role="tab">
+                                <a aria-controls="collapseThree" aria-expanded="false" class="collapsed checkout__title"
+                                   data-toggle="collapse" th:href="@{/cart/checkout}">
+                                    <span>Thanh toán COD</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkout_accordion mt--30" id="accordion1" role="tablist">
+                        <div class="payment">
+                            <div class="che__header" id="headingThree1" role="tab">
+                                <a aria-controls="collapseThree" aria-expanded="false"
+                                   class="collapsed checkout__title"
+                                   data-toggle="collapse" th:href="@{/cart/checkout-vnpay}">
+                                    <span>Thanh toán VNPay</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Checkout Area -->
+
+    <!-- Footer Area -->
+    <footer th:replace="user/fragments/footer :: footer"></footer>
+    <!-- //Footer Area -->
+
+</div>
+<!-- //Main wrapper -->
+<!-- JS Files -->
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+
+
+</body>
+
+</html>

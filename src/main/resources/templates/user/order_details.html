@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Chi tiết đơn hàng</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        /* Reset some default table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        /* Style for the table header row */
+        thead th {
+            text-align: left;
+            background-color: #f2f2f2;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        /* Style for the table data rows */
+        tbody td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Style for the product image cell */
+        .product-thumbnail img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Center the product name */
+        .product-name {
+            text-align: center;
+        }
+
+        /* Style for product price and subtotal cells */
+        .product-price,
+        .product-subtotal {
+            text-align: center;
+        }
+
+        /* Style for the product quantity cell */
+        .product-quantity {
+            text-align: center;
+        }
+
+        /* Style for the order details header section */
+        .order-details-header {
+            margin-bottom: 20px;
+        }
+
+        /* Style for the order details header section p tags */
+        .order-details-header p {
+            margin: 5px 0;
+        }
+
+        .cancel-order-btn {
+            display: inline-block;
+            margin: 10px auto;
+            padding: 8px 15px;
+            background-color: orange;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cancel-order-btn:hover {
+            background-color: #cc0000;
+            color: black;
+        }
+    </style>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div th:replace="user/fragments/search_popup :: search_popup"></div>
+    <!-- End Search Popup -->
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+    <!-- order-details-main-area start -->
+    <div class="wishlist-area section-padding--lg bg__white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="wishlist-content">
+                        <div class="order-details-header">
+                            <h3 class="mb-4">Chi tiết đơn hàng</h3>
+                            <p class="mb-4"><strong>Mã đơn hàng:</strong> <span th:text="${order.code == null ? '' : order.code}"></span></p>
+                            <p class="mb-4"><strong>Người nhận:</strong> <span th:text="${order.reciever}"></span></p>
+                            <p class="mb-4"><strong>Địa chỉ nhận:</strong> <span
+                                    th:text="${order.shippingAddress}"></span></p>
+                            <p class="mb-4"><strong>Ngày đặt hàng:</strong> <span
+                                    th:text="${#dates.format(order.createdAt, 'HH:mm - dd/MM/yyyy')}"></span></p>
+                            <p class="mb-4"><strong>Tổng tiền đơn hàng:</strong> <span
+                                    th:text="${order.totalPrice}"></span></p>
+                            <p class="mb-4"><strong>Tình trạng:</strong> <span th:text="${order.status}"></span>
+                            </p>
+                            <p class="mb-4"><strong>Phương thức thanh toán:</strong> <span
+                                    th:text="${order.paymentMethod}"></span>
+                            </p>
+                            <p class="mb-4"><strong>Số điện thoại:</strong> <span
+                                    th:text="${order.phoneNumber}"></span></p>
+                            <a class="btn btn-danger cancel-order-btn mb-4"
+                               th:href="@{/orders/cancel/__${order.id}__}"
+                               th:if="${order.getStatus() == 'PENDING' || order.getStatus() == 'PROCESSING'}">Huỷ đơn</a>
+                            <a class="btn btn-success mb-4"
+                               th:href="@{/orders/received/__${order.id}__}"
+                               th:if="${order.getStatus() == 'DELIVERING'}">Đã nhận</a>
+                        </div>
+                        <div class="order-details-table wnro__table table-responsive">
+                            <table class="mt-3">
+                                <thead>
+                                <tr>
+                                    <th class="product-name">Sản phẩm</th>
+                                    <th class="product-name">Tên</th>
+                                    <th class="product-price">Đơn giá</th>
+                                    <th class="product-quantity">Số lượng</th>
+                                    <th class="product-subtotal">Tổng giá</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item : ${ordersDetails}">
+                                    <td class="product-thumbnail">
+                                        <img alt="Product Image"
+                                             th:src="${item.getBook().coverImage}"/>
+                                    </td>
+                                    <td class="product-name" th:text="${item.getBook().title}"></td>
+                                    <td class="product-price" th:text="${item.price}"></td>
+                                    <td class="product-quantity" th:text="${item.quantity}">1</td>
+                                    <td class="product-subtotal" th:text="${item.price * item.quantity}"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- order-details-main-area end -->
+    <!-- Footer Area -->
+    <footer th:replace="user/fragments/footer :: footer"></footer>
+    <!-- //Footer Area -->
+</div>
+<!-- //Main wrapper -->
+<!-- JS Files -->
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+</body>
+
+</html>

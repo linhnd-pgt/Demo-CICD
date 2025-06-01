@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Chi tiết sản phẩm</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+
+
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+
+        .product-details-img {
+            max-width: 450px;
+        }
+    </style>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+    </style>
+
+    <style>
+        .reading {
+            background-color: #ce7852 !important;
+            background-position: 100% 0 !important;
+            color: white;
+        }
+    </style>
+
+</head>
+
+
+<body>
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <h2>Mua các <span>cuốn sách </span></h2>
+                                <h2>yêu thích <span>của bạn </span></h2>
+                                <h2>tại <span>đây </span></h2>
+                                <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+    <!-- Start main Content -->
+    <div class="maincontent bg--white pt--80 pb--55">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                    <div class="wn__single__product">
+                        <div class="row">
+                            <div class="col-lg-6 col-12">
+                                <div class="wn__fotorama__wrapper img-container">
+                                    <img alt=""
+                                         class="product-details-img" th:src="${product.coverImage}"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="product__info__main">
+
+                                    <h2 class="title__be--2 mt-3">
+                                        <span th:text="${product.title}"></span>
+                                    </h2>
+
+                                    <h3 class="mt-3 mb-3 color--theme"
+                                        th:text="${#numbers.formatDecimal(__${(product.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></h3>
+
+                                    <div class="product__overview">
+                                        <p id="bookDescription" th:text="${product.description}">
+
+                                        </p>
+
+                                    </div>
+
+                                    <div class="box-tocart d-flex">
+                                        <span>Số lượng</span>
+                                        <input class="input-text qty" id="qty" min="1" name="qty" title="Qty"
+                                               type="number" value="1"/>
+                                        <div class="addtocart__actions">
+                                            <button class="tocart" type="submit" title="Add to Cart"
+                                                    th:onclick="'addToCart(' + ${product.id} + ')'">Thêm vào giỏ hàng</button>
+                                        </div>
+                                        <div class="product-addto-links clearfix">
+                                            <a class="wishlist" th:onclick="'addToWishlist('+${product.id} +')'"></a>
+                                            <a class="voice" id="readButton" th:onclick="'readDescription()'"></a>
+                                            <a class="compare" th:onclick="'resetCartValue()'"></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="product_meta">
+											<span class="posted_in">Danh mục:
+												<a th:href="@{/shop(page=${1}, sortBy=${'priceHighToLow'}, categoryId=${product.getCategory().getId()}, amountGap=${'0 VND - 1.000.000 VND'})}" th:text="${product.category.getName()}"></a>
+											</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__info__detailed">
+                        <div class="pro_details_nav nav justify-content-start" role="tablist">
+                            <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details"
+                               role="tab">Thông tin chi tiết</a>
+                        </div>
+                        <div class="tab__container">
+                            <!-- Start Single Tab Content -->
+                            <div class="pro__tab_label tab-pane fade show active" id="nav-details" role="tabpanel">
+                                <table>
+                                    <tr>
+                                        <th>Mã sản phẩm</th>
+                                        <td th:text="${'#'+ product.id }"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Tác giá</th>
+                                        <td th:text="${product.author }"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nhà xuất bản</th>
+                                        <td th:text="${product.publisher }"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số lượng tồn kho</th>
+                                        <td th:text="${product.qty}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Số trang</th>
+                                        <td th:text="${product.numberOfPages}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày xuất bản</th>
+                                        <td th:text="${#dates.format(product.publishedDate, 'dd-MM-yyyy')}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số lượng</th>
+                                        <td th:text="${product.qty}"></td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <!-- End Single Tab Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function addToWishlist(productId) {
+
+            $.ajax({
+                type: "POST",
+                url: "/wishlist/add",
+                data: {
+                    bookId: productId
+                },
+                success: function (response) {
+                    if (response === "ok") {
+                        alert("Đã thêm vào danh sách yêu thích !")
+                    } else {
+                        alert("Bạn cần đăng nhập trước");
+                        window.location.href = "/login";
+                    }
+                },
+                error: function (xhr, status, error) {
+
+                    alert("Đã có lỗi : " + error);
+                }
+            });
+        }
+
+        let isReading = false;
+        let speech = null;
+        let paused = false;
+        const readButton = document.getElementById("readButton");
+        const description = document.getElementById("bookDescription").innerText;
+
+        function readDescription(){
+            if (!speech) {
+                speech = new SpeechSynthesisUtterance(description);
+                speech.lang = 'en-EN'; // tiếng việt là vi-VN
+                speech.rate = 1;
+            }
+
+            if (isReading) {
+                if (!paused) {
+                    window.speechSynthesis.pause();
+                    paused = true;
+                    readButton.classList.remove("reading");
+                } else {
+                    window.speechSynthesis.resume();
+                    paused = false;
+                    readButton.classList.add("reading");
+                }
+            } else {
+                // Nếu chưa đọc, bắt đầu đọc
+                window.speechSynthesis.speak(speech);
+                isReading = true;
+                readButton.classList.add("reading");
+            }
+
+            speech.onend = () => {
+                isReading = false;
+                paused = false;
+                readButton.classList.remove("reading");
+            };
+        }
+
+        // Dừng việc đọc khi chuyển trang
+        window.addEventListener("beforeunload", () => {
+            window.speechSynthesis.cancel();
+        });
+
+
+        function resetCartValue(){
+            $('#qty').val(0); // Lấy giá trị từ trường input
+        }
+
+        function addToCart(productId) {
+            var qty = $('#qty').val(); // Lấy giá trị từ trường input
+            var data = JSON.stringify({"productId": productId, "quantity": qty});
+
+            $.ajax({
+                type: "POST",
+                url: "/cart/add-to-cart",
+                contentType: "application/json",
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    if (data === "ok") {
+                        alert("Thêm sản phẩm vào giỏ thành công");
+                        // Update cart quantity in the header
+                        updateCartQuantity();
+                    } else if (data === "error"){
+                        alert("Hiện tại không đủ hàng");
+                        $('#qty').val(0); // Lấy giá trị từ trường input
+                    } else {
+                        alert("Bạn cần đăng nhập trước");
+                        window.location.href = "/login"; // Update the URL accordingly
+                    }
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi");
+                }
+            });
+        }
+
+        function updateCartQuantity() {
+            $.ajax({
+                type: "GET",
+                url: "/cart/cart-item-count",  // Replace with the actual endpoint to get cart item count
+                success: function (data) {
+                    $("#cart-quantity").text(data); // Update the cart quantity in the header
+                },
+                error: function () {
+                    console.log("Lỗi cập nhật số lượng.");
+                }
+            });
+        }
+
+    </script>
+    <!-- End main Content -->
+    <!-- Start Search Popup -->
+    <div th:replace="user/fragments/search_popup :: search_popup"></div>
+    <!-- End Search Popup -->
+
+    <!-- After the product details section and before the footer -->
+    <!-- Add this section for similar books -->
+    <div th:if="${similarBooks != null and not #lists.isEmpty(similarBooks)}" class="wn__related__product pt--80 pb--50">
+        <div class="container">
+            <div class="section__title text-center">
+                <h2 class="title__be--2">Sách <span class="color--theme">tương tự</span></h2>
+            </div>
+            <div class="row mt--60">
+                <div class="productcategory__slide--2 arrows_style owl-carousel owl-theme" id="similar-books-carousel">
+                    <!-- Start Single Product -->
+                    <div class="product product__style--3" th:each="book : ${similarBooks}">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                            <div class="product__thumb">
+                                <a class="first__img" th:href="@{/shop/product/__${book.id}__}">
+                                    <img style="width: 263px; height: 420px" th:src="${book.coverImage}" alt="product image">
+                                </a>
+                            </div>
+                            <div class="product__content content--center">
+                                <h4><a th:href="@{/shop/product/__${book.id}__}" th:text="${book.title}"></a></h4>
+                                <ul class="prize d-flex">
+                                    <li th:text="${#numbers.formatDecimal(__${(book.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                                    <li class="old_prize" th:text="${#numbers.formatDecimal(__${(book.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                                </ul>
+                                <div class="action">
+                                    <div class="actions_inner">
+                                        <ul class="add_to_links">
+                                            <li><a class="cart" th:onclick="'addToCart(' + ${book.id} + ')'"><i class="bi bi-shopping-bag4"></i></a></li>
+                                            <li><a class="wishlist" th:onclick="'addToWishlist(' + ${book.id} + ')'"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                            <li><a data-toggle="modal" th:onclick="'openModal(event, ' + ${book.id} + ')'" title="Quick View" class="quickview modal-view detail-link"><i class="bi bi-search"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product__hover--content">
+                                    <ul class="rating d-flex">
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Product -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add a hidden input with the product ID for JavaScript -->
+    <input type="hidden" id="product-id" th:value="${product.id}" />
+
+    <!-- Footer Area -->
+    <footer th:replace="user/fragments/footer :: footer"></footer>
+    <!-- //Footer Area -->
+</div>
+<!-- //Main wrapper -->
+<!-- JS Files -->
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+</body>
+
+</html>
