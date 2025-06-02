@@ -6,4 +6,6 @@ public class CICDExample {
 
     private String description;
 
+    private Integer id;
+
 }
